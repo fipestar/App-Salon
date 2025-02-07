@@ -47,7 +47,7 @@
     <div class="campo">
         <label for="password">Password</label>
          <input 
-           type="text"
+           type="password"
            id="password"
            name="password"
            placeholder="Tu Password">

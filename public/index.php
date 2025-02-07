@@ -22,6 +22,10 @@ $router->post('/recuperar', [new LoginController(), 'recuperar']);
 $router->get('/crear-cuenta', [new LoginController(), 'crear']);
 $router->post('/crear-cuenta', [new LoginController(), 'crear']);
 
+//Confirmar cuenta
+$router->get('/confirmar-cuenta', [new LoginController(), 'confirmar']);
+$router->get('/mensaje', [new LoginController(), 'mensaje']);
+
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

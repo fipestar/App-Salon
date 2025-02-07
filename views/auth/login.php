@@ -1,5 +1,7 @@
-<h1 class="nombre-pagina">Desde Login</h1>
+<h1 class="nombre-pagina">Login</h1>
 <p class="descripcion-pagina">Inicia sesion con tus datos</p>
+
+<?php include_once __DIR__ . "/../templates/alertas.php" ?>
 
 <form class="formulario" method="POST" action="">
     <div class="campo">
