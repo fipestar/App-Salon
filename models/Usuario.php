@@ -25,8 +25,8 @@ class Usuario extends ActiveRecord {
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
-        $this->admin = $args['admin'] ?? '';
-        $this->confirmado = $args['confirmado'] ?? '';
+        $this->admin = $args['admin'] ?? 0;
+        $this->confirmado = $args['confirmado'] ?? 0;
         $this->token = $args['token'] ?? '';
     }
 
@@ -59,6 +59,24 @@ class Usuario extends ActiveRecord {
         }
         if(!$this->password){
             self::$alertas['error'][] = 'El password es obligatorio';
+        }
+        return self::$alertas;
+     }
+
+     public function validarEmail(){
+        if(!$this->email){
+            self::$alertas['error'][] = 'El email es obligatorio';
+        }
+        return self::$alertas;
+     }
+
+
+     public function validarPassword(){
+        if(!$this->password){
+            self::$alertas['error'][] = 'El password es obligatorio';
+        }
+        if(strlen($this->password) < 6){
+            self::$alertas['error'][] = 'El password debe contener al menos 6 caracteres';
         }
         return self::$alertas;
      }
