@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../includes/app.php';
 
 use MVC\Router;
+use Controllers\CitaController;
 use Controllers\LoginController;
 
 $router = new Router();
@@ -25,6 +26,9 @@ $router->post('/crear-cuenta', [new LoginController(), 'crear']);
 //Confirmar cuenta
 $router->get('/confirmar-cuenta', [new LoginController(), 'confirmar']);
 $router->get('/mensaje', [new LoginController(), 'mensaje']);
+
+//Area privada
+$router->get('/cita', [new CitaController(), 'index']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

@@ -125,7 +125,6 @@ class LoginController {
                header('Location: /');
                Usuario::setAlerta('exito', 'Password actualizado correctamente');
                
-               
             }
          }
       }
