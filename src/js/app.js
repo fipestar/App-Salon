@@ -19,6 +19,10 @@ function iniciarApp() {
     paginaAnterior(); //Funcion para retroceder a la pagina anterior
 
     consultarAPI(); //Consultar la API para obtener los datos
+    nombreCliente(); //Validar el nombre del cliente
+    seleccionarFecha(); //Seleccionar la fecha
+    seleccionarHora(); //Seleccionar la hora
+    mostrarResumen(); //Muestra el resumen de la cita
 }
 
 function mostrarSeccion(){
@@ -68,6 +72,8 @@ function botonesPaginador(){
     }else if(paso === 3){
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.add('ocultar');
+
+        mostrarResumen();
     }else{
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.remove('ocultar');
@@ -133,7 +139,92 @@ function mostrarServicios(servicios){
 function seleccionarServicio(servicio){
         const { id } = servicio;
         const { servicios } = cita;
-        cita.servicios = [...servicios, servicio];
+        //Identificar al elemento al que se le da click
         const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
-        divServicio.classList.add('seleccionado');
+        //Comprobar si un servicio ya fue agregado
+        if(servicios.some( agregado => agregado.id === servicio.id)){
+            //Eliminar el servicio del arreglo
+
+            cita.servicios = servicios.filter( agregado => agregado.id !== id);
+            divServicio.classList.remove('seleccionado');
+
+               }else {
+                //Agrega el servicio al arreglo
+                cita.servicios = [...servicios, servicio];
+                divServicio.classList.add('seleccionado');
+               }   
+}
+
+function nombreCliente(){
+    cita.nombre = document.querySelector('#nombre').value;
+}
+
+function seleccionarFecha(){
+    const inputFecha = document.querySelector('#fecha');
+    inputFecha.addEventListener('input', function(e) {
+
+        const dia = new Date(e.target.value).getUTCDay();
+
+        if( [6, 0].includes(dia) ){
+            e.target.value = '';
+            mostrarAlerta('No se pueden agendar citas los fines de semana', 'error');
+        }else{
+            cita.fecha = e.target.value;
+        }
+    })
+}
+
+function seleccionarHora(){
+
+    const inputHora = document.querySelector('#hora');
+    inputHora.addEventListener('input', function(e){
+
+        const horaCita = e.target.value;
+        const hora = horaCita.split(':')[0];
+
+        if(hora < 10 || hora > 18){
+            e.target.value = '';
+            mostrarAlerta('Hora no válida', 'error');
+            setTimeout(() => {
+                inputHora.value = '';
+            }, 3000);
+        }else{
+            cita.hora = e.target.value;
+        }
+    })
+
+}
+
+function mostrarAlerta(mensaje, tipo){
+
+    //Si hay una alerta previa, no crear otra
+    const alertaPrevia = document.querySelector('.alerta');
+    if(alertaPrevia){
+        return;
+    }
+
+
+    //Scripting de la alerta
+    const alerta = document.createElement('DIV');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alerta');
+    alerta.classList.add(tipo);
+
+    const formulario = document.querySelector('.formulario');
+    formulario.appendChild(alerta);
+
+    //Eliminar la alerta despues de 3 segundos
+    setTimeout(() => {
+        alerta.remove();
+    }, 3000);
+}
+
+function mostrarResumen(){
+    const resumen = document.querySelector('.contenido-resumen');
+
+    if(Object.values(cita).includes('')){
+        console.log('Hacen falta datos');
+}else{
+
+}
 }
