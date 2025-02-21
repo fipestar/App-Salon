@@ -33,6 +33,7 @@ $router->get('/cita', [new CitaController(), 'index']);
 
 //API de citas
 $router->get('/api/servicios', [new APIController(), 'index']);
+$router->post('/api/citas', [new APIController(), 'guardar']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

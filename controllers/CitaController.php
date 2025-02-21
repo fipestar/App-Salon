@@ -8,9 +8,9 @@ class CitaController
 {
     public static function index(Router $router)
     {
-        if (!$_SESSION['nombre']) {
-            session_start();
-          }
+        if (!isset($_SESSION['login'])) {
+            header('Location: /login');
+        }
 
         $router->render('cita/index', [
             'nombre' => $_SESSION['nombre']

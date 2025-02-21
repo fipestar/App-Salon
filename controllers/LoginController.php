@@ -22,7 +22,7 @@ class LoginController {
                // Verificar el password
                if ($usuario->comprobarPasswordAndVerificado($auth->password)) {
                   session_start();
-                  $_SESSION['usuario'] = $usuario->id;
+                  $_SESSION['id'] = $usuario->id;
                   $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
                   $_SESSION['email'] = $usuario->email;
                   $_SESSION['login'] = true;
