@@ -1,7 +1,7 @@
 let paso = 1;
 
 const cita = {
-
+    id: '',
     nombre: '',
     fecha: '',
     hora: '',
@@ -21,6 +21,7 @@ function iniciarApp() {
 
     consultarAPI(); //Consultar la API para obtener los datos
 
+    idCliente(); //Validar el id del cliente
     nombreCliente(); //Validar el nombre del cliente
     seleccionarFecha(); //Seleccionar la fecha
     seleccionarHora(); //Seleccionar la hora
@@ -102,7 +103,7 @@ function paginaSiguiente(){
 
 async function consultarAPI(){
     try {
-        const url = 'http://localhost:3000/api/servicios';
+        const url = '/api/servicios';
         const resultado = await fetch(url);
         const servicios = await resultado.json();
         mostrarServicios(servicios);
@@ -157,7 +158,9 @@ function seleccionarServicio(servicio){
                }   
 }
 
-
+function idCliente(){
+    cita.id = document.querySelector('#id').value;
+}
 function nombreCliente(){
     cita.nombre = document.querySelector('#nombre').value;
 }
@@ -298,7 +301,7 @@ function mostrarResumen(){
     const botonReservar = document.createElement('BUTTON');
     botonReservar.textContent = 'Reservar Cita';
     botonReservar.classList.add('boton');   
-    botonReservar.onclick = reservarCita();
+    botonReservar.onclick = reservarCita;
 
 
     resumen.appendChild(nombreCliente);
@@ -309,28 +312,46 @@ function mostrarResumen(){
 
 async function reservarCita(){
 
-    const { nombre, fecha, hora, servicios } = cita;
+    const {  nombre, fecha, hora, servicios, id } = cita;
 
     const idServicios = servicios.map( servicio => servicio.id);
 
     const datos = new FormData();
-    datos,append('nombre', nombre);
     datos.append('fecha', fecha);
     datos.append('hora', hora);
     datos.append('usuarioId', id);
     datos.append('servicios', idServicios);
 
     //Peticion hacia la API
-    const url = 'http://localhost:3000/api/citas';
 
-    const respuesta = await fetch(url, {
-        method: 'POST',
-        body: datos
-    })
+    try {
+        // Petición hacia la api
+        const url = '/api/servicios';
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: datos
+        });
 
-    const resultado = await respuesta.json();
-
-   
-
-
+        const resultado = await respuesta.json();
+        console.log(resultado);
+        
+        if(resultado.resultado) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Cita Creada',
+                text: 'Tu cita fue creada correctamente',
+                button: 'OK'
+            }).then( () => {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            })
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error al guardar la cita'
+        })
+    }
 }

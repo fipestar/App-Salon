@@ -1,6 +1,8 @@
 <h1 class="nombre-pagina">Crear Nueva Cita</h1>
 <p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
 
+<?php include_once __DIR__ . '/../templates/barra.php'; ?>
+
 
 <div id="app">
     <nav class="tabs">
@@ -69,5 +71,8 @@
 </div>
 
 <?php
-    $script = "<script src='build/js/app.js'></script>";
+    $script = "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script src='build/js/app.js'></script>
+    ";
 ?>
