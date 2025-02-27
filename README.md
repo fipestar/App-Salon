@@ -48,10 +48,9 @@ Plataforma web para la gestión de citas en negocios de servicios. Permite a los
 | **Sass (CSS Preprocesador)** | Diseño modular y optimizado |
 | **PHPMailer** | Envío de correos electrónicos (confirmación, recuperación) |
 | **SweetAlert** | Alertas y notificaciones interactivas |
+
+---
 ![image](https://github.com/user-attachments/assets/c11ddae2-1ac9-4193-bcdc-f0b2072e2be3)
 ![image](https://github.com/user-attachments/assets/18ae2e58-e91d-42a6-b8fa-42e625fcd16a)
 ![image](https://github.com/user-attachments/assets/28126b1a-513d-4bfa-8c6f-cee2b2c06418)
-
-
----
 
